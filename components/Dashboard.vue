@@ -21,18 +21,31 @@ async function fetchData(filter: any) {
   if (filter) {
     query = filter.query
   }
-  const response = await useLazyFetch(`${baseUrl}/sholat/kota/cari/${query}`)
-  console.log('ieu re', response);
+  const response:any = await useLazyFetch(`${baseUrl}/sholat/kota/cari/${query}`)
+  // console.log('ieu re', response);
   cities.value = response.data.value.data
 }
 
 const gotoRealTime = (e: any) => {
-  console.log('ena', e);
+  // console.log('ena', e);
+  localStorage.setItem('lokasi', JSON.stringify(e));
+  router.push({
+    path: '/clock',
+      query: {
+          cityid: e.id
+      },
+  })
+}
+onMounted(() => {
+  const getDataLocal:any = localStorage.getItem('lokasi')
+  const toJson = JSON.parse(getDataLocal);
+  if (toJson != undefined && toJson != null && toJson != '') {
     router.push({
       path: '/clock',
         query: {
-            cityid: e.id
+            cityid: toJson.id
         },
     })
-}
+  }
+});
 </script>

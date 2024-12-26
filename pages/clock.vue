@@ -13,6 +13,9 @@
               <Column field="maghrib" header="Maghrib"></Column>
               <Column field="isya" header="Isya"></Column>
           </DataTable>
+          <div>
+            <Button label="<-" variant="link" @click="backToDashboard()"/>
+          </div>
       </div>
       <div v-else>
         <p>Loading...</p>
@@ -23,8 +26,10 @@
 
 <script setup>
 import dayjs from 'dayjs';
+import Button from 'primevue/button';
 
 const route = useRoute()
+const router = useRouter()
 const today = ref(dayjs().format('YYYY-MM-DD'))
 const baseUrl = 'https://api.myquran.com/v2'
 const statusGetData = ref()
@@ -43,6 +48,13 @@ const fetchJadwalSholat = async (id, day) => {
     console.error('Error fetching data:', error);
   }
 };
+
+const backToDashboard = () => {
+  localStorage.removeItem('lokasi');
+  router.push({
+    path: '/',
+  })
+}
 
 // Mengambil data saat komponen dimuat
 onMounted(() => {
