@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center text-9xl font-bold">
+  <div class="text-center text-5xl font-bold md:text-9xl">
     <p>{{ currentTime }}</p>
   </div>
 </template>
